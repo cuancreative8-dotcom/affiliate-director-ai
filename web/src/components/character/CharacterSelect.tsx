@@ -1,20 +1,38 @@
+"use client";
+
+import { characters } from "@/data/characters";
+import { useDashboardStore } from "@/store/dashboardStore";
+
 export default function CharacterSelect() {
+  const character = useDashboardStore((state) => state.character);
+    const setCharacter = useDashboardStore((state) => state.setCharacter);
+
       return (
-          <div>
-                <label className="block text-sm font-semibold mb-2">
+          <div className="space-y-2">
+                <label className="block text-sm font-semibold">
                         Character
                               </label>
 
-                                    <select className="w-full border rounded-xl p-3">
-                                            <option value="">Pilih Character</option>
+                                    <select
+                                            value={character}
+                                                    onChange={(e) => setCharacter(e.target.value)}
+                                                            className="w-full rounded-xl border p-3"
+                                                                  >
+                                                                          <option value="">
+                                                                                    Pilih Character
+                                                                                            </option>
 
-                                                    <option>Tangan Saja (POV)</option>
-                                                            <option>Model AI Wanita</option>
-                                                                    <option>Model AI Pria</option>
-                                                                            <option>Pasangan</option>
-                                                                                    <option>Anak-anak</option>
-                                                                                            <option>Keluarga</option>
-                                                                                                  </select>
-                                                                                                      </div>
-                                                                                                        );
-                                                                                                        }
+                                                                                                    {characters
+                                                                                                              .filter((item) => item.active)
+                                                                                                                        .map((item) => (
+                                                                                                                                    <option
+                                                                                                                                                  key={item.id}
+                                                                                                                                                                value={item.id}
+                                                                                                                                                                            >
+                                                                                                                                                                                          {item.name}
+                                                                                                                                                                                                      </option>
+                                                                                                                                                                                                                ))}
+                                                                                                                                                                                                                      </select>
+                                                                                                                                                                                                                          </div>
+                                                                                                                                                                                                                            );
+                                                                                                                                                                                                                            }
